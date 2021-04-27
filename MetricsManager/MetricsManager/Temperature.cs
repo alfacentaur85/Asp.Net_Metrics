@@ -8,11 +8,13 @@ namespace MetricsManager
     public class Temperature
     {
 
-        public List<(DateTime, int)> listTimeTemp;
+        public DateTime dt { get; set; }
+        public int vt { get; set; }
 
-        public Temperature()
+        public Temperature(DateTime dt, int vt)
         {
-            listTimeTemp = new List<(DateTime, int)>();       
+            this.dt = dt;
+            this.vt = vt;
         }
     }
 }

@@ -13,9 +13,9 @@ namespace MetricsManager
     [ApiController]
     public class TemperatureController : ControllerBase
     {
-        private readonly Temperature _temperature;
+        private  List<Temperature> _temperature = new List<Temperature>();
 
-        public TemperatureController(Temperature temperature)
+        public TemperatureController(List<Temperature> temperature)
         {
             this._temperature = temperature;
         }
@@ -23,26 +23,26 @@ namespace MetricsManager
         [HttpPost("create")]
         public IActionResult Create([FromQuery] DateTime inputTime, [FromQuery] int inputTemp)
         {
-            _temperature.listTimeTemp.Add((inputTime, inputTemp));
+            _temperature.Add(new Temperature(inputTime, inputTemp));
             return Ok();
         }
         
         [HttpGet("read")]
         public IActionResult Read([FromQuery] DateTime startTimeToRead, [FromQuery] DateTime endTimeToRead)
         {
-            
-            return Ok(_temperature.listTimeTemp.Where(w => w.Item1 >= startTimeToRead && w.Item1 <= endTimeToRead).Select(p => p.ToString() ));
+
+            return Ok(_temperature.Where(w => w.dt >= startTimeToRead && w.dt <= endTimeToRead));
         }
 
         [HttpPut("update")]
         public IActionResult Update([FromQuery] DateTime timeToUpdate, [FromQuery] int temp)
         {
-            List<(DateTime, int)> tempList = new List<(DateTime, int)>();
-            for (int i = 0; i < _temperature.listTimeTemp.Count; i++)
+            
+            for (int i = 0; i < _temperature.Count; i++)
             {
-                if (_temperature.listTimeTemp[i].Item1 == timeToUpdate)
+                if (_temperature[i].dt == timeToUpdate)
                 {
-                    _temperature.listTimeTemp[i] = (timeToUpdate, temp);
+                    _temperature[i].vt = temp;
                 }
                         
             }
@@ -52,8 +52,16 @@ namespace MetricsManager
         [HttpDelete("delete")]
         public IActionResult Delete([FromQuery] DateTime startTimeToDelete, [FromQuery] DateTime endTimeToDelete)
         {
-            _temperature.listTimeTemp = _temperature.listTimeTemp.Where(w => w.Item1 >= startTimeToDelete && w.Item1 <= endTimeToDelete).ToList();
-            return Ok();
+            for (int i = 0; i < _temperature.Count; i++ )
+            {
+                if(_temperature[i].dt >= startTimeToDelete && _temperature[i].dt <= endTimeToDelete)
+                {
+                    _temperature.RemoveAt(i);
+                    i--;
+                }
+            }
+            
+            return Ok(_temperature);
         }
     }
 }
