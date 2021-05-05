@@ -8,6 +8,14 @@ namespace MetricsAgent.Responses
 {
     public class AllMetricsResponse
     {
-        public List<Metric> Metrics { get; set; }
+        public List<MetricDto> Metrics { get; set; }
     }
+
+    public class MetricDto
+    {
+        public DateTimeOffset Time { get; set; }
+        public int Value { get; set; }
+        public int Id { get; set; }
+    }
+
 }

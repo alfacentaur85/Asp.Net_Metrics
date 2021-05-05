@@ -49,12 +49,12 @@ namespace MetricsAgent.Controllers
 
             var response = new AllMetricsResponse()
             {
-                Metrics = new List<Metric>()
+                Metrics = new List<MetricDto>()
             };
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new Metric { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
             }
 
             _logger.LogInformation(string.Concat("GetAll_Network"));
@@ -69,12 +69,12 @@ namespace MetricsAgent.Controllers
 
             var response = new AllMetricsResponse()
             {
-                Metrics = new List<Metric>()
+                Metrics = new List<MetricDto>()
             };
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new Metric { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
             }
 
             _logger.LogInformation(string.Concat("GetMetricsFromAgent_Network: ", " fromTime: ", fromTime.ToString(), " toTime: ", toTime.ToString()));
