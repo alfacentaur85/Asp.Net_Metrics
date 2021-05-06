@@ -86,7 +86,7 @@ namespace MetricsAgent.DAL
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
                         // налету преобразуем прочитанные секунды в метку времени
-                        Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))
+                        Time = DateTimeOffset.Parse(reader.GetString(2))
                     });
                 }
             }
@@ -110,7 +110,7 @@ namespace MetricsAgent.DAL
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
-                        Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(1))
+                        Time = DateTimeOffset.Parse(reader.GetString(2))
                     };
                 }
                 else
@@ -139,7 +139,7 @@ namespace MetricsAgent.DAL
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
                         // налету преобразуем прочитанные секунды в метку времени
-                        Time = DateTimeOffset.FromUnixTimeSeconds(reader.GetInt32(2))
+                        Time = DateTimeOffset.Parse(reader.GetString(2))
                     });
                 }
             }
