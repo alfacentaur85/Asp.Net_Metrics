@@ -2,18 +2,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Xunit;
-using MetricsManager.Enums;
 using MetricsManager;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
+
 
 namespace MetricsManagerTest
 {
+
+
+
+
     public class AgentsControllerUnitTests
     {
         private AgentsController _controller;
 
+        private readonly ILogger<AgentsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<AgentsController>();
+
         public AgentsControllerUnitTests()
         {
-            _controller = new AgentsController();
+            _controller = new AgentsController(_logger);
         }
 
         [Fact]
