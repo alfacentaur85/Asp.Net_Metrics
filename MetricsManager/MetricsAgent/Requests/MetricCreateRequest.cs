@@ -7,8 +7,17 @@ namespace MetricsAgent.Requests
 {
     public class MetricCreateRequest
     {
+<<<<<<< HEAD
         public DateTimeOffset Time { get; set; }
 
         public int Value { get; set; }
+=======
+        
+        public int Value { get; set; }
+
+        public DateTimeOffset Time { get; set; }
+
+
+>>>>>>> Lesson4
     }
 }

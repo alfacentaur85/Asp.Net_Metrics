@@ -58,9 +58,18 @@ namespace MetricsAgent.Controllers
 
             _logger.LogInformation(string.Concat("GetAll_CPU"));
 
+<<<<<<< HEAD
             return Ok(response);
         }
 
+=======
+            /*return Ok(response);*/
+            return Ok(metrics[0].Time);
+        }
+
+
+
+>>>>>>> Lesson4
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {

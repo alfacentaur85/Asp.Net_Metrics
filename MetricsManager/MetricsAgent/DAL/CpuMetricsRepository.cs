@@ -2,6 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+<<<<<<< HEAD
+=======
+using Dapper;
+>>>>>>> Lesson4
 
 namespace MetricsAgent.DAL
 {
@@ -19,6 +23,7 @@ namespace MetricsAgent.DAL
         public void Create(Metric item)
         {
             using var connection = new SQLiteConnection(Startup.connectionString);
+<<<<<<< HEAD
             connection.Open();
             // создаем команду
             using var cmd = new SQLiteCommand(connection);
@@ -35,11 +40,21 @@ namespace MetricsAgent.DAL
             cmd.Prepare();
             // выполнение команды
             cmd.ExecuteNonQuery();
+=======
+
+            connection.Execute(string.Concat("INSERT INTO ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], "(value, time) VALUES(@value, @time)"),
+                new
+                {
+                    value = item.Value,
+                    time = item.Time.ToUnixTimeSeconds()
+                });
+>>>>>>> Lesson4
         }
 
         public void Delete(int id)
         {
             using var connection = new SQLiteConnection(Startup.connectionString);
+<<<<<<< HEAD
             connection.Open();
             using var cmd = new SQLiteCommand(connection);
             // прописываем в команду SQL запрос на удаление данных
@@ -48,11 +63,19 @@ namespace MetricsAgent.DAL
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
+=======
+            connection.Execute(string.Concat("DELETE FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " WHERE id=@id"),
+               new
+               {
+                   id = id
+               });
+>>>>>>> Lesson4
         }
 
         public void Update(Metric item)
         {
             using var connection = new SQLiteConnection(Startup.connectionString);
+<<<<<<< HEAD
             using var cmd = new SQLiteCommand(connection);
             // прописываем в команду SQL запрос на обновление данных   
             cmd.CommandText = string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " SET value = @value, time = @time WHERE id=@id;");
@@ -62,11 +85,21 @@ namespace MetricsAgent.DAL
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
+=======
+            connection.Execute(string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " SET value = @value, time = @time WHERE id=@id"),
+               new
+               {
+                   id = item.Id,
+                   value = item.Value,
+                   time = item.Time.ToUnixTimeSeconds()
+               });
+>>>>>>> Lesson4
         }
 
         public IList<Metric> GetAll()
         {
             using var connection = new SQLiteConnection(Startup.connectionString);
+<<<<<<< HEAD
             connection.Open();
             using var cmd = new SQLiteCommand(connection);
 
@@ -92,6 +125,16 @@ namespace MetricsAgent.DAL
             }
 
             return returnList;
+=======
+
+            return connection.Query<Metric> 
+                (
+                    (
+                      string.Concat
+                             ("SELECT id, value, datetime(time, 'unixepoch', 'localtime') time FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS])
+                    )
+                  ).AsList<Metric>();
+>>>>>>> Lesson4
         }
 
         public Metric GetById(int id)
