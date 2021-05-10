@@ -6,6 +6,8 @@ using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
 using MetricsAgent.Responses;
+using MetricsAgent.DAL.Models;
+using MetricsAgent.DAL.Interfaces;
 
 namespace MetricsAgentTest
 {

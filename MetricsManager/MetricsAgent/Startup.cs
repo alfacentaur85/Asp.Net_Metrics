@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using MetricsAgent.DAL;
 using System.Data.SQLite;
 using System.IO;
+using MetricsAgent.DAL.Interfaces;
+using AutoMapper;
+using Dapper;
 
 namespace MetricsAgent
 {
@@ -39,7 +42,9 @@ namespace MetricsAgent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new MapperProfile()));
+            var mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddControllers();
             services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
             services.AddScoped<IDotNetMetricsRepository, DotNetMetricsRepository>();
@@ -72,7 +77,7 @@ namespace MetricsAgent
 
                     command.CommandText = string.Concat("CREATE TABLE ", metricsType," (id INTEGER PRIMARY KEY,value INT, time INT)");
                     command.ExecuteNonQuery();
-                }
+                }            
                 
             }
         }

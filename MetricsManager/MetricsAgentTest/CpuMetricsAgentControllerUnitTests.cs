@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using MetricsAgent.Responses;
 using NLog.Web;
 using System.Collections.Generic;
+using MetricsAgent.DAL.Interfaces;
+using MetricsAgent.DAL.Models;
 
 namespace MetricsAgentTest
 {

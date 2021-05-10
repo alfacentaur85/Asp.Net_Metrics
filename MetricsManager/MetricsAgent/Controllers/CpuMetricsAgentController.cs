@@ -8,6 +8,10 @@ using MetricsAgent.DAL;
 using MetricsAgent.Responses;
 using MetricsAgent.Requests;
 using Microsoft.Extensions.Logging;
+using MetricsAgent.DAL.Interfaces;
+using MetricsAgent.DAL.Models;
+using AutoMapper;
+
 
 namespace MetricsAgent.Controllers
 {
@@ -44,35 +48,35 @@ namespace MetricsAgent.Controllers
         [HttpGet("all")]
         public IActionResult GetAll()
         {
-            var metrics = _repository.GetAll() ?? new List<Metric>();
-
+            // задаем конфигурацию для мапера. Первый обобщенный параметр -- тип объекта источника, второй -- тип объекта в который перетекут данные из источника
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Metric, MetricDto>());
+            var m = config.CreateMapper();
+            IList<Metric> metrics = _repository.GetAll() ?? new List<Metric>();
             var response = new AllMetricsResponse()
             {
                 Metrics = new List<MetricDto>()
             };
-
-            foreach(var metric in metrics)
+            foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id }); 
+                // добавляем объекты в ответ при помощи мапера
+                response.Metrics.Add(m.Map<MetricDto>(metric));
             }
 
             _logger.LogInformation(string.Concat("GetAll_CPU"));
 
-<<<<<<< HEAD
             return Ok(response);
-        }
 
-=======
-            /*return Ok(response);*/
-            return Ok(metrics[0].Time);
         }
 
 
 
->>>>>>> Lesson4
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Metric, MetricDto>());
+            
+            var m = config.CreateMapper();
+
             var metrics = _repository.GetByPeriod(fromTime, toTime) ?? new List<Metric>();
 
             var response = new AllMetricsResponse()
@@ -82,7 +86,7 @@ namespace MetricsAgent.Controllers
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(new MetricDto { Time = metric.Time, Value = metric.Value, Id = metric.Id });
+                response.Metrics.Add(m.Map<MetricDto>(metric));
             }
 
             _logger.LogInformation(string.Concat("GetMetricsFromAgent_CPU: "," fromTime: ", fromTime.ToString(), " toTime: ", toTime.ToString()));
