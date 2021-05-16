@@ -6,7 +6,7 @@ using MetricsAgent.DAL.Models;
 
 namespace MetricsAgent.DAL.Interfaces
 {
-    public interface INetworkMetricsRepository : IRepository<Metric>
+    public interface INetworkMetricsRepository : IRepository<NetworkMetric>
     {
 
     }

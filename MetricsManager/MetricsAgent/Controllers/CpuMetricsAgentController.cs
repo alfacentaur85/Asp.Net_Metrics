@@ -31,9 +31,9 @@ namespace MetricsAgent.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] MetricCreateRequest request)
+        public IActionResult Create([FromBody] CpuMetricCreateRequest request)
         {
-            _repository.Create(new Metric
+            _repository.Create(new CpuMetric
             {
                 Time = request.Time,
                 Value = request.Value
@@ -49,17 +49,17 @@ namespace MetricsAgent.Controllers
         public IActionResult GetAll()
         {
             // задаем конфигурацию для мапера. Первый обобщенный параметр -- тип объекта источника, второй -- тип объекта в который перетекут данные из источника
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Metric, MetricDto>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<CpuMetric, CpuMetricDto>());
             var m = config.CreateMapper();
-            IList<Metric> metrics = _repository.GetAll() ?? new List<Metric>();
-            var response = new AllMetricsResponse()
+            IList<CpuMetric> metrics = _repository.GetAll();
+            var response = new CpuAllMetricsResponse()
             {
-                Metrics = new List<MetricDto>()
+                Metrics = new List<CpuMetricDto>()
             };
             foreach (var metric in metrics)
             {
                 // добавляем объекты в ответ при помощи мапера
-                response.Metrics.Add(m.Map<MetricDto>(metric));
+                response.Metrics.Add(m.Map<CpuMetricDto>(metric));
             }
 
             _logger.LogInformation(string.Concat("GetAll_CPU"));
@@ -73,20 +73,20 @@ namespace MetricsAgent.Controllers
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Metric, MetricDto>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<CpuMetric, CpuMetricDto>());
             
             var m = config.CreateMapper();
 
-            var metrics = _repository.GetByPeriod(fromTime, toTime) ?? new List<Metric>();
+            var metrics = _repository.GetByPeriod(fromTime, toTime);
 
-            var response = new AllMetricsResponse()
+            var response = new CpuAllMetricsResponse()
             {
-                Metrics = new List<MetricDto>()
+                Metrics = new List<CpuMetricDto>()
             };
 
             foreach (var metric in metrics)
             {
-                response.Metrics.Add(m.Map<MetricDto>(metric));
+                response.Metrics.Add(m.Map<CpuMetricDto>(metric));
             }
 
             _logger.LogInformation(string.Concat("GetMetricsFromAgent_CPU: "," fromTime: ", fromTime.ToString(), " toTime: ", toTime.ToString()));

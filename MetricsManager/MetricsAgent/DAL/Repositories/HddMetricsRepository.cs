@@ -22,11 +22,11 @@ namespace MetricsAgent.DAL
 
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
 
-        public void Create(Metric item)
+        public void Create(HddMetric item)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
 
-            connection.Execute(string.Concat("INSERT INTO ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS], "(value, time) VALUES(@value, @time)"),
+            connection.Execute(string.Concat("INSERT INTO ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics], "(value, time) VALUES(@value, @time)"),
                 new
                 {
                     value = item.Value,
@@ -36,18 +36,18 @@ namespace MetricsAgent.DAL
 
         public void Delete(int id)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            connection.Execute(string.Concat("DELETE FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS], " WHERE id=@id"),
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            connection.Execute(string.Concat("DELETE FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics], " WHERE id=@id"),
                new
                {
                    id = id
                });
         }
 
-        public void Update(Metric item)
+        public void Update(HddMetric item)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            connection.Execute(string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS], " SET value = @value, time = @time WHERE id=@id"),
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            connection.Execute(string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics], " SET value = @value, time = @time WHERE id=@id"),
                new
                {
                    id = item.Id,
@@ -56,27 +56,27 @@ namespace MetricsAgent.DAL
                });
         }
 
-        public IList<Metric> GetAll()
+        public IList<HddMetric> GetAll()
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
 
-            return connection.Query<Metric>
+            return connection.Query<HddMetric>
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS])
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics])
                     )
-                  ).AsList<Metric>();
+                  ).AsList<HddMetric>();
         }
 
-        public Metric GetById(int id)
+        public HddMetric GetById(int id)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            return connection.QuerySingle<Metric>
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<HddMetric>
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS])
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics])
                     ),
 
                     new
@@ -87,14 +87,14 @@ namespace MetricsAgent.DAL
 
         }
 
-        public IList<Metric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
+        public IList<HddMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            return connection.Query<Metric>
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.Query<HddMetric>
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HDD_METRICS], " WHERE time>=@from and time<=@to")
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics], " WHERE time>=@from and time<=@to")
                     ),
 
                     new
@@ -102,7 +102,7 @@ namespace MetricsAgent.DAL
                         from = fromTime.ToUnixTimeSeconds(),
                         to = toTime.ToUnixTimeSeconds()
                     }
-                ).AsList<Metric>();
+                ).AsList<HddMetric>();
         }
     }
 }

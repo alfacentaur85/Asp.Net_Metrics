@@ -14,7 +14,12 @@ namespace MetricsAgent
         public MapperProfile()
         {
             // добавлять сопоставления в таком стиле нужно для всех объектов 
-            CreateMap<Metric, MetricDto>();
+            CreateMap<CpuMetric, CpuMetricDto>();
+            CreateMap<RamMetric, RamMetricDto>();
+            CreateMap<HddMetric, HddMetricDto>();
+            CreateMap<NetworkMetric, NetworkMetricDto>();
+            CreateMap<DotNetMetric, DotNetMetricDto>();
+
         }
     }
 

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace MetricsAgent
 {
-    enum MetricsTypeEnum
+    public enum MetricsTypeEnum
     {
-        CPU_METRICS,
-        DOTNET_METRICS,
-        HDD_METRICS,
-        NETWORK_METRICS,
-        RAM_METRICS
+        CpuMetrics,
+        DotNetMetrics,
+        HddMetrics,
+        NetworkMetrics,
+        RamMetrics
     }
     public class MetricsType
     {

@@ -21,11 +21,11 @@ namespace MetricsAgent.DAL
        
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
 
-        public void Create(Metric item)
+        public void Create(CpuMetric item)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
 
-            connection.Execute(string.Concat("INSERT INTO ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], "(value, time) VALUES(@value, @time)"),
+            connection.Execute(string.Concat("INSERT INTO ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics], "(value, time) VALUES(@value, @time)"),
                 new
                 {
                     value = item.Value,
@@ -35,18 +35,18 @@ namespace MetricsAgent.DAL
 
         public void Delete(int id)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            connection.Execute(string.Concat("DELETE FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " WHERE id=@id"),
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            connection.Execute(string.Concat("DELETE FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics], " WHERE id=@id"),
                new
                {
                    id = id
                });
         }
 
-        public void Update(Metric item)
+        public void Update(CpuMetric item)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            connection.Execute(string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " SET value = @value, time = @time WHERE id=@id"),
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            connection.Execute(string.Concat("UPDATE ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics], " SET value = @value, time = @time WHERE id=@id"),
                new
                {
                    id = item.Id,
@@ -55,27 +55,27 @@ namespace MetricsAgent.DAL
                });
         }
 
-        public IList<Metric> GetAll()
+        public IList<CpuMetric> GetAll()
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
 
-            return connection.Query<Metric> 
+            return connection.Query<CpuMetric> 
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS])
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics])
                     )
-                  ).AsList<Metric>();
+                  ).AsList<CpuMetric>();
         }
 
-        public Metric GetById(int id)
+        public CpuMetric GetById(int id)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            return connection.QuerySingle<Metric>
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<CpuMetric>
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS])
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics])
                     ),
 
                     new
@@ -86,14 +86,14 @@ namespace MetricsAgent.DAL
 
         }
 
-        public IList<Metric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
+        public IList<CpuMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
         {
-            using var connection = new SQLiteConnection(Startup.connectionString);
-            return connection.Query<Metric>
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.Query<CpuMetric>
                 (
                     (
                       string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CPU_METRICS], " WHERE time>=@from and time<=@to")
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics], " WHERE time>=@from and time<=@to")
                     ),
 
                     new
@@ -101,7 +101,7 @@ namespace MetricsAgent.DAL
                         from = fromTime.ToUnixTimeSeconds(),
                         to = toTime.ToUnixTimeSeconds()
                     }
-                ).AsList<Metric>();
+                ).AsList<CpuMetric>();
         }
     }
 }

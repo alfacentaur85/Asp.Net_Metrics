@@ -34,16 +34,16 @@ namespace MetricsAgentTest
             // устанавливаем параметр заглушки
             // в заглушке прописываем что в репозиторий прилетит Metric объект
             _mock.Setup(repository =>
-            repository.Create(It.IsAny<Metric>())).Verifiable();
+            repository.Create(It.IsAny<CpuMetric>())).Verifiable();
             // выполняем действие на контроллере
             var result = _controller.Create(new
-            MetricsAgent.Requests.MetricCreateRequest
+            MetricsAgent.Requests.CpuMetricCreateRequest
             {
                 Time = DateTimeOffset.FromUnixTimeSeconds(1),
                 Value = 50
             });
 
-            _mock.Verify(repository => repository.Create(It.IsAny<Metric>()), Times.AtMostOnce());
+            _mock.Verify(repository => repository.Create(It.IsAny<CpuMetric>()), Times.AtMostOnce());
 
         }
 

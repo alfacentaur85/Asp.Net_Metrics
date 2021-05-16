@@ -22,7 +22,7 @@ namespace MetricsAgent
 {
     public class Startup
     {
-        public static string connectionString 
+        public static string ConnectionString 
         {
             get
             {
@@ -57,7 +57,7 @@ namespace MetricsAgent
 
         private void ConfigureSqlLiteConnection(IServiceCollection services)
         {
-            var connection = new SQLiteConnection(connectionString);
+            var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
             PrepareSchema(connection);
         }
