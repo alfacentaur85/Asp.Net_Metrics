@@ -4,20 +4,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsManager", "MetricsManager\MetricsManager.csproj", "{A177D485-4720-4113-9F57-1F4E6DE9C2E2}"
+<<<<<<< HEAD
 	ProjectSection(ProjectDependencies) = postProject
 		{3FAA14CD-A147-4C73-AE61-12931AC289A2} = {3FAA14CD-A147-4C73-AE61-12931AC289A2}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsAgent", "MetricsAgent\MetricsAgent.csproj", "{BD7B21DD-B4E4-4B60-8E30-89E9EA7E7897}"
+=======
+>>>>>>> Lesson8
 	ProjectSection(ProjectDependencies) = postProject
-		{A177D485-4720-4113-9F57-1F4E6DE9C2E2} = {A177D485-4720-4113-9F57-1F4E6DE9C2E2}
+		{3FAA14CD-A147-4C73-AE61-12931AC289A2} = {3FAA14CD-A147-4C73-AE61-12931AC289A2}
+		{BD7B21DD-B4E4-4B60-8E30-89E9EA7E7897} = {BD7B21DD-B4E4-4B60-8E30-89E9EA7E7897}
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsAgent", "MetricsAgent\MetricsAgent.csproj", "{BD7B21DD-B4E4-4B60-8E30-89E9EA7E7897}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsManagerTest", "MetricsManagerTest\MetricsManagerTest.csproj", "{E48EA335-4956-43E2-AC21-2EE3E8EEF067}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsAgentTest", "MetricsAgentTest\MetricsAgentTest.csproj", "{4B61F4D9-9A62-4AB6-B7ED-0D084A784AC0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{3FAA14CD-A147-4C73-AE61-12931AC289A2}"
+<<<<<<< HEAD
+=======
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricsManagerClient", "MetricsManagerClient\MetricsManagerClient.csproj", "{F119363F-F7B7-4B01-87FC-93322775D92D}"
+>>>>>>> Lesson8
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +56,10 @@ Global
 		{3FAA14CD-A147-4C73-AE61-12931AC289A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FAA14CD-A147-4C73-AE61-12931AC289A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FAA14CD-A147-4C73-AE61-12931AC289A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F119363F-F7B7-4B01-87FC-93322775D92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F119363F-F7B7-4B01-87FC-93322775D92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F119363F-F7B7-4B01-87FC-93322775D92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F119363F-F7B7-4B01-87FC-93322775D92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

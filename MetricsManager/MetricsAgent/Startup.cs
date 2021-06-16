@@ -8,13 +8,22 @@ using System.IO;
 using MetricsAgent.DAL.Interfaces;
 using AutoMapper;
 using FluentMigrator.Runner;
+<<<<<<< HEAD
 using FluentMigrator;
+=======
+>>>>>>> Lesson8
 using MetricsAgent.Factories;
 using MetricsAgent.Jobs;
 using MetricsAgent.DTO;
 using Quartz.Impl;
 using Quartz;
 using Quartz.Spi;
+<<<<<<< HEAD
+=======
+using System;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+>>>>>>> Lesson8
 
 namespace MetricsAgent
 {
@@ -44,6 +53,35 @@ namespace MetricsAgent
             var mapper = mapperConfiguration.CreateMapper();
             services.AddSingleton(mapper);
 
+<<<<<<< HEAD
+=======
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API сервиса агента сбора метрик",
+                    Description = "На этой странице возможно тестирование сервисов",
+                    TermsOfService = new Uri("https://localhost/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Artur Stepanyants",
+                        Email = string.Empty,
+                        Url = new Uri("https://localhost"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Copyright",
+                        Url = new Uri("https://localhost/license"),
+                    }
+                });
+                // Указываем файл из которого брать комментарии для Swagger UI
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
+>>>>>>> Lesson8
 
             services.AddControllers();
 
@@ -114,6 +152,17 @@ namespace MetricsAgent
                 endpoints.MapControllers();
             });
 
+<<<<<<< HEAD
+=======
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API сервиса агента сбора метрик");
+                c.RoutePrefix = string.Empty;
+            });
+
+>>>>>>> Lesson8
             // запускаем миграции
             migrationRunner.MigrateUp();
         }

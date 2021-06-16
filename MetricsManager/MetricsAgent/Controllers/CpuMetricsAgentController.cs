@@ -30,6 +30,9 @@ namespace MetricsAgent.Controllers
             _logger.LogDebug(1, "Nlog встроен в CpuMetricsAgentController");
         }
 
+        /// <summary>
+        /// Сохраняет метрику Cpu на текущий момент времени
+        /// </summary>
         [HttpPost("create")]
         public IActionResult Create([FromBody] CpuMetricCreateRequest request)
         {
@@ -45,6 +48,18 @@ namespace MetricsAgent.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Получает все метрики CPU
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса:
+        ///
+        ///     GET all
+        ///
+        /// </remarks>
+        /// <returns>Список метрик CPU, которые были сохранены</returns>
+        /// <response code="200">ОК</response>
+        /// <response code="400">Неверные параметры</response> 
         [HttpGet("all")]
         public IActionResult GetAll()
         {
@@ -67,6 +82,23 @@ namespace MetricsAgent.Controllers
             return Ok(response);
         }
 
+<<<<<<< HEAD
+=======
+        /// <summary>
+        /// Получает метрики CPU на заданном диапазоне времени
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса:
+        ///
+        ///     GET from/1970-01-01/to/2021-12-31
+        ///
+        /// </remarks>
+        /// <param name="fromTime">начальная метрка времени в секундах с 01.01.1970</param>
+        /// <param name="toTime">конечная метрка времени в секундах с 01.01.1970</param>
+        /// <returns>Список метрик CPU, которые были сохранены в заданном диапазоне времени</returns>
+        /// <response code="200">ОК</response>
+        /// <response code="400">Неверные параметры</response> 
+>>>>>>> Lesson8
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent([FromRoute] DateTimeOffset fromTime, [FromRoute] DateTimeOffset toTime)
         {

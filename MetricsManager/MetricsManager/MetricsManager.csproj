@@ -30,12 +30,20 @@
     <PackageReference Include="Quartz" Version="3.3.2" />
     <PackageReference Include="Quartz.Jobs" Version="3.3.2" />
     <PackageReference Include="SQLite" Version="3.13.0" />
+<<<<<<< HEAD
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+=======
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+>>>>>>> Lesson8
     <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+<<<<<<< HEAD
+=======
+    <ProjectReference Include="..\MetricsAgent\MetricsAgent.csproj" />
+>>>>>>> Lesson8
   </ItemGroup>
 
   <ItemGroup>
