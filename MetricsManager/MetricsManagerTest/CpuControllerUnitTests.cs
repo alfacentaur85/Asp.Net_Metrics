@@ -14,9 +14,11 @@ namespace MetricsManagerTest
 
         private readonly ILogger<CpuMetricsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<CpuMetricsController>();
 
+        private readonly MetricsManager.DAL.Interfaces.ICpuMetricsRepository _repository = new MetricsManager.DAL.Repositories.CpuMetricsRepository();
+
         public CpuControllerUnitTests()
         {
-            _controller = new CpuMetricsController(_logger);
+            _controller = new CpuMetricsController(_logger, _repository);
         }
 
         [Fact]

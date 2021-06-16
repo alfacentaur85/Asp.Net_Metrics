@@ -21,7 +21,6 @@ namespace MetricsAgent.Controllers
         private IRamMetricsRepository _repository;
 
         private readonly ILogger<RamMetricsAgentController> _logger;
-
         public RamMetricsAgentController(IRamMetricsRepository repository, ILogger<RamMetricsAgentController> logger)
         {
             _repository = repository;

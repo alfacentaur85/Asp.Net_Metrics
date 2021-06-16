@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsManager", "MetricsManager\MetricsManager.csproj", "{A177D485-4720-4113-9F57-1F4E6DE9C2E2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3FAA14CD-A147-4C73-AE61-12931AC289A2} = {3FAA14CD-A147-4C73-AE61-12931AC289A2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsAgent", "MetricsAgent\MetricsAgent.csproj", "{BD7B21DD-B4E4-4B60-8E30-89E9EA7E7897}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsManagerTest", "Metri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetricsAgentTest", "MetricsAgentTest\MetricsAgentTest.csproj", "{4B61F4D9-9A62-4AB6-B7ED-0D084A784AC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{3FAA14CD-A147-4C73-AE61-12931AC289A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{3FAA14CD-A147-4C73-AE61-12931AC289A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -45,6 +45,23 @@ namespace MetricsAgent.DAL
                });
         }
 
+        public RamMetric GetById(int id)
+        {
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<RamMetric>
+                (
+                    (
+                      string.Concat
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.RamMetrics])
+                    ),
+                    new
+                    {
+                        id = id
+                    }
+                );
+
+        }
+
         public void Update(RamMetric item)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -70,24 +87,6 @@ namespace MetricsAgent.DAL
                   ).AsList<RamMetric>();
         }
 
-        public RamMetric GetById(int id)
-        {
-            using var connection = new SQLiteConnection(Startup.ConnectionString);
-            return connection.QuerySingle<RamMetric>
-                (
-                    (
-                      string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.RamMetrics])
-                    ),
-
-                    new
-                    {
-                        id = id
-                    }
-                );
-
-        }
-
         public IList<RamMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -97,7 +96,6 @@ namespace MetricsAgent.DAL
                       string.Concat
                              ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.RamMetrics], " WHERE time>=@from and time<=@to")
                     ),
-
                     new
                     {
                         from = fromTime.ToUnixTimeSeconds(),

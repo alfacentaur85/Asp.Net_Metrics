@@ -21,7 +21,6 @@ namespace MetricsAgent.DAL
         }
 
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
-
         public void Create(HddMetric item)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -31,7 +30,7 @@ namespace MetricsAgent.DAL
                 {
                     value = item.Value,
                     time = item.Time.ToUnixTimeSeconds()
-                });
+                }); 
         }
 
         public void Delete(int id)
@@ -42,6 +41,23 @@ namespace MetricsAgent.DAL
                {
                    id = id
                });
+        }
+
+        public HddMetric GetById(int id)
+        {
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<HddMetric>
+                (
+                    (
+                      string.Concat
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics])
+                    ),
+                    new
+                    {
+                        id = id
+                    }
+                );
+
         }
 
         public void Update(HddMetric item)
@@ -56,6 +72,7 @@ namespace MetricsAgent.DAL
                });
         }
 
+
         public IList<HddMetric> GetAll()
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -69,24 +86,6 @@ namespace MetricsAgent.DAL
                   ).AsList<HddMetric>();
         }
 
-        public HddMetric GetById(int id)
-        {
-            using var connection = new SQLiteConnection(Startup.ConnectionString);
-            return connection.QuerySingle<HddMetric>
-                (
-                    (
-                      string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics])
-                    ),
-
-                    new
-                    {
-                        id = id
-                    }
-                );
-
-        }
-
         public IList<HddMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -96,7 +95,6 @@ namespace MetricsAgent.DAL
                       string.Concat
                              ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.HddMetrics], " WHERE time>=@from and time<=@to")
                     ),
-
                     new
                     {
                         from = fromTime.ToUnixTimeSeconds(),

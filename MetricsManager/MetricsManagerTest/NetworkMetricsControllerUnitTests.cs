@@ -12,9 +12,11 @@ namespace MetricsManagerTest
 
         private readonly ILogger<NetworkMetricsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<NetworkMetricsController>();
 
+        private readonly MetricsManager.DAL.Interfaces.INetworkMetricsRepository _repository = new MetricsManager.DAL.Repositories.NetWorkMetricsRepository();
+
         public NetworkControllerUnitTests()
         {
-            _controller = new NetworkMetricsController(_logger);
+            _controller = new NetworkMetricsController(_logger, _repository);
         }
 
         [Fact]

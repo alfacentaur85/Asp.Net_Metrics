@@ -12,9 +12,11 @@ namespace MetricsManagerTest
 
         private readonly ILogger<RamMetricsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<RamMetricsController>();
 
+        private readonly MetricsManager.DAL.Interfaces.IRamMetricsRepository _repository = new MetricsManager.DAL.Repositories.RamMetricsRepository();
+
         public RamControllerUnitTests()
         {
-            _controller = new RamMetricsController(_logger);
+            _controller = new RamMetricsController(_logger, _repository);
         }
 
         [Fact]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MetricsAgent.DAL;
 using MetricsAgent.DAL.Models;
+using Core.Interfaces;
 
 namespace MetricsAgent.DAL.Interfaces
 {

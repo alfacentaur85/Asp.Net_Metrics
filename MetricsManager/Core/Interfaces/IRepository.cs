@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MetricsAgent.DAL
+namespace Core.Interfaces
 {
     public interface IRepository<T> where T : class
     {
         IList<T> GetAll();
         IList<T> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime);
-        T GetById(int id);
         void Create(T item);
-        void Update(T item);
+        T GetById(int id);
         void Delete(int id);
 
 

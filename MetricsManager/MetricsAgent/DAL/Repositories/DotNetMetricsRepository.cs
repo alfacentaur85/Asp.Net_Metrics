@@ -21,7 +21,6 @@ namespace MetricsAgent.DAL
         }
 
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
-
         public void Create(DotNetMetric item)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -42,6 +41,23 @@ namespace MetricsAgent.DAL
                {
                    id = id
                });
+        }
+
+        public DotNetMetric GetById(int id)
+        {
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<DotNetMetric>
+                (
+                    (
+                      string.Concat
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.DotNetMetrics])
+                    ),
+                    new
+                    {
+                        id = id
+                    }
+                );
+
         }
 
         public void Update(DotNetMetric item)
@@ -67,24 +83,6 @@ namespace MetricsAgent.DAL
                              ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.DotNetMetrics])
                     )
                   ).AsList<DotNetMetric>();
-        }
-
-        public DotNetMetric GetById(int id)
-        {
-            using var connection = new SQLiteConnection(Startup.ConnectionString);
-            return connection.QuerySingle<DotNetMetric>
-                (
-                    (
-                      string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.DotNetMetrics])
-                    ),
-
-                    new
-                    {
-                        id = id
-                    }
-                );
-
         }
 
         public IList<DotNetMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)

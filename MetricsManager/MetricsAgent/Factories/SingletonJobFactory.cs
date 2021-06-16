@@ -20,7 +20,6 @@ namespace MetricsAgent.Factories
         {
             return _serviceProvider.GetRequiredService(bundle.JobDetail.JobType) as IJob;
         }
-
         public void ReturnJob(IJob job) { }
 
     }

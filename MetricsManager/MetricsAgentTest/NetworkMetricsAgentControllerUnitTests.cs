@@ -55,17 +55,6 @@ namespace MetricsAgentTest
 
         }
 
-        [Fact]
-        public void ByPeriod_ShouldCall_GetMetricsFromAgent_From_Repository()
-        {
-            // устанавливаем параметр заглушки
-            // в заглушке прописываем что в репозиторий прилетит Metric объект
-            _mock.Setup(repository =>
-            repository.GetById(It.IsAny<int>()));
-            // выполняем действие на контроллере
-            var result = _controller.GetMetricsFromAgent(DateTimeOffset.FromUnixTimeSeconds(1), DateTimeOffset.FromUnixTimeSeconds(100));
-
-        }
     }
 }
 

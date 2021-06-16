@@ -12,7 +12,6 @@ namespace MetricsAgent.DTO
             JobType = jobType;
             CronExpression = cronExpression;
         }
-
         public Type JobType { get; }
         public string CronExpression { get; }
     }

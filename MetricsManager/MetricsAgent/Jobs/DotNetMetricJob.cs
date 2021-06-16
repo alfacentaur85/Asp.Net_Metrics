@@ -17,7 +17,6 @@ namespace MetricsAgent.Jobs
         // счетчик для метрики DotNet
 
         private PerformanceCounter _DotNetCounter;
-
         public DotNetMetricJob(IDotNetMetricsRepository repository)
         {
             

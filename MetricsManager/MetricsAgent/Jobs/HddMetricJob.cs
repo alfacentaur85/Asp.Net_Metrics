@@ -14,7 +14,6 @@ namespace MetricsAgent.Jobs
         private IHddMetricsRepository _repository;
 
         // счетчик для метрики Hdd
-
         private PerformanceCounter _HddCounter;
 
         public HddMetricJob(IHddMetricsRepository repository)
@@ -22,7 +21,6 @@ namespace MetricsAgent.Jobs
             _repository = repository;
             _HddCounter = new PerformanceCounter("LogicalDisk", "% Free Space", "C:");
         }
-
         public Task Execute(IJobExecutionContext context)
         {
             

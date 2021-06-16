@@ -14,9 +14,7 @@ namespace MetricsAgent.Jobs
         private IRamMetricsRepository _repository;
 
         // счетчик для метрики Ram
-
         private PerformanceCounter _RamCounter;
-
         public RamMetricJob(IRamMetricsRepository repository)
         {
             _repository = repository;

@@ -20,7 +20,6 @@ namespace MetricsAgent.DAL
         }
        
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
-
         public void Create(CpuMetric item)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -30,7 +29,7 @@ namespace MetricsAgent.DAL
                 {
                     value = item.Value,
                     time = item.Time.ToUnixTimeSeconds()
-                });
+                }); ;
         }
 
         public void Delete(int id)
@@ -41,6 +40,22 @@ namespace MetricsAgent.DAL
                {
                    id = id
                });
+        }
+
+        public CpuMetric GetById(int id)
+        {
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<CpuMetric>
+                (
+                    (
+                      string.Concat
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics])
+                    ),
+                    new
+                    {
+                        id = id
+                    }
+                );
         }
 
         public void Update(CpuMetric item)
@@ -55,35 +70,18 @@ namespace MetricsAgent.DAL
                });
         }
 
+
         public IList<CpuMetric> GetAll()
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
 
-            return connection.Query<CpuMetric> 
+            return  connection.Query<CpuMetric> 
                 (
                     (
                       string.Concat
                              ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics])
                     )
                   ).AsList<CpuMetric>();
-        }
-
-        public CpuMetric GetById(int id)
-        {
-            using var connection = new SQLiteConnection(Startup.ConnectionString);
-            return connection.QuerySingle<CpuMetric>
-                (
-                    (
-                      string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.CpuMetrics])
-                    ),
-
-                    new
-                    {
-                        id = id
-                    }
-                );
-
         }
 
         public IList<CpuMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)

@@ -12,9 +12,11 @@ namespace MetricsManagerTest
 
         private readonly ILogger<HddMetricsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<HddMetricsController>();
 
+        private readonly MetricsManager.DAL.Interfaces.IHddMetricsRepository _repository = new MetricsManager.DAL.Repositories.HddMetricsRepository();
+
         public HddControllerUnitTests()
         {
-            _controller = new HddMetricsController(_logger);
+            _controller = new HddMetricsController(_logger, _repository);
         }
 
         [Fact]

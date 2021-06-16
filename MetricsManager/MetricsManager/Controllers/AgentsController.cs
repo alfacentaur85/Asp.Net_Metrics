@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using MetricsManager.DAL.Models;
 
 namespace MetricsManager.Controllers
 {
@@ -41,8 +42,5 @@ namespace MetricsManager.Controllers
             _logger.LogInformation(string.Concat("DisableAgentById", " AgentID: ", agentId.ToString()));
             return Ok();
         }
-
-       
-
     }
 }

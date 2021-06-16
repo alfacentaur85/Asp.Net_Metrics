@@ -15,8 +15,7 @@ namespace MetricsAgent.Jobs
     {
         private ICpuMetricsRepository _repository;
 
-        // счетчик для метрики CPU
-        
+        // счетчик для метрики CPU   
         private PerformanceCounter _cpuCounter;
 
         public CpuMetricJob(ICpuMetricsRepository repository)

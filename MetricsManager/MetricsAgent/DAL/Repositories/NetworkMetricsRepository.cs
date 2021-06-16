@@ -12,8 +12,6 @@ namespace MetricsAgent.DAL
 {
     // маркировочный интерфейс
     // необходим, чтобы проверить работу репозитория на тесте-заглушке
-
-
     public class NetWorkMetricsRepository : INetworkMetricsRepository
     {
         public NetWorkMetricsRepository()
@@ -22,7 +20,6 @@ namespace MetricsAgent.DAL
         }
 
         // инжектируем соединение с базой данных в наш репозиторий через конструктор
-
         public void Create(NetworkMetric item)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -32,7 +29,7 @@ namespace MetricsAgent.DAL
                 {
                     value = item.Value,
                     time = item.Time.ToUnixTimeSeconds()
-                });
+                }) ;
         }
 
         public void Delete(int id)
@@ -43,6 +40,23 @@ namespace MetricsAgent.DAL
                {
                    id = id
                });
+        }
+
+        public NetworkMetric GetById(int id)
+        {
+            using var connection = new SQLiteConnection(Startup.ConnectionString);
+            return connection.QuerySingle<NetworkMetric>
+                (
+                    (
+                      string.Concat
+                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.NetworkMetrics])
+                    ),
+                    new
+                    {
+                        id = id
+                    }
+                );
+
         }
 
         public void Update(NetworkMetric item)
@@ -70,24 +84,6 @@ namespace MetricsAgent.DAL
                   ).AsList<NetworkMetric>();
         }
 
-        public NetworkMetric GetById(int id)
-        {
-            using var connection = new SQLiteConnection(Startup.ConnectionString);
-            return connection.QuerySingle<NetworkMetric>
-                (
-                    (
-                      string.Concat
-                             ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.NetworkMetrics])
-                    ),
-
-                    new
-                    {
-                        id = id
-                    }
-                );
-
-        }
-
         public IList<NetworkMetric> GetByPeriod(DateTimeOffset fromTime, DateTimeOffset toTime)
         {
             using var connection = new SQLiteConnection(Startup.ConnectionString);
@@ -97,7 +93,6 @@ namespace MetricsAgent.DAL
                       string.Concat
                              ("SELECT * FROM ", MetricsType.metricsList[(int)MetricsTypeEnum.NetworkMetrics], " WHERE time>=@from and time<=@to")
                     ),
-
                     new
                     {
                         from = fromTime.ToUnixTimeSeconds(),

@@ -22,7 +22,6 @@ namespace MetricsAgent.Controllers
         private INetworkMetricsRepository _repository;
 
         private readonly ILogger<NetworkMetricsAgentController> _logger;
-
         public NetworkMetricsAgentController(INetworkMetricsRepository repository, ILogger<NetworkMetricsAgentController> logger)
         {
             _repository = repository;

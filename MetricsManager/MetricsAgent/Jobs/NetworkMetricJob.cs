@@ -14,9 +14,7 @@ namespace MetricsAgent.Jobs
         private INetworkMetricsRepository _repository;
 
         // счетчик для метрики Network
-
         private PerformanceCounter _NetworkCounter;
-
         public NetworkMetricJob(INetworkMetricsRepository repository)
         {
             _repository = repository;

@@ -12,10 +12,11 @@ namespace MetricsManagerTest
 
         private readonly ILogger<DotNetMetricsController> _logger = new Microsoft.Extensions.Logging.LoggerFactory().CreateLogger<DotNetMetricsController>();
 
+        private readonly MetricsManager.DAL.Interfaces.IDotNetMetricsRepository _repository = new MetricsManager.DAL.Repositories.DotNetMetricsRepository();
 
         public DotNetControllerUnitTests()
         {
-            _controller = new DotNetMetricsController(_logger);
+            _controller = new DotNetMetricsController(_logger, _repository);
         }
 
         [Fact]
